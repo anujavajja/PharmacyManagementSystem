@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DrugsInventory">
+          <Key>
+            <PropertyRef Name="DrugId" />
+          </Key>
+          <Property Name="DrugId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DrugName" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Expiry Date" Type="date" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SupplierId" Type="decimal" Precision="18" Scale="1" />
+        </EntityType>
+        <EntityType Name="Order Details">
+          <Key>
+            <PropertyRef Name="Order Id" />
+          </Key>
+          <Property Name="Order Id" Type="int" Nullable="false" />
+          <Property Name="Drug Id" Type="int" Nullable="false" />
+          <Property Name="User Id" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Expiry Date" Type="date" Nullable="false" />
+          <Property Name="Total Amount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="OrderPickedup" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplerInventory">
+          <Key>
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="SupplierId" Type="int" Nullable="false" />
+          <Property Name="SupplierName" Type="varchar" MaxLength="50" />
+          <Property Name="SupplierEmail" Type="varchar" MaxLength="100" />
+          <Property Name="Contact" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="UserRegistration">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="EmailID" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="ConfirmPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Order Details_Order Details">
+          <End Role="Order Details" Type="Self.Order Details" Multiplicity="1" />
+          <End Role="Order Details1" Type="Self.Order Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order Details">
+              <PropertyRef Name="Order Id" />
+            </Principal>
+            <Dependent Role="Order Details1">
+              <PropertyRef Name="Drug Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order Details_Order Details1">
+          <End Role="Order Details" Type="Self.Order Details" Multiplicity="1" />
+          <End Role="Order Details1" Type="Self.Order Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Order Details">
+              <PropertyRef Name="Order Id" />
+            </Principal>
+            <Dependent Role="Order Details1">
+              <PropertyRef Name="Order Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order Details_Order Details2">
+          <End Role="Order Details" Type="Self.Order Details" Multiplicity="1" />
+          <End Role="Order Details1" Type="Self.Order Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order Details">
+              <PropertyRef Name="Order Id" />
+            </Principal>
+            <Dependent Role="Order Details1">
+              <PropertyRef Name="User Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="DrugsInventory" EntityType="Self.DrugsInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order Details" EntityType="Self.Order Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplerInventory" EntityType="Self.SupplerInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRegistration" EntityType="Self.UserRegistration" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Order Details_Order Details" Association="Self.FK_Order Details_Order Details">
+            <End Role="Order Details" EntitySet="Order Details" />
+            <End Role="Order Details1" EntitySet="Order Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order Details_Order Details1" Association="Self.FK_Order Details_Order Details1">
+            <End Role="Order Details" EntitySet="Order Details" />
+            <End Role="Order Details1" EntitySet="Order Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order Details_Order Details2" Association="Self.FK_Order Details_Order Details2">
+            <End Role="Order Details" EntitySet="Order Details" />
+            <End Role="Order Details1" EntitySet="Order Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DrugsInventory">
+          <Key>
+            <PropertyRef Name="DrugId" />
+          </Key>
+          <Property Name="DrugId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DrugName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Expiry_Date" Type="DateTime" Precision="0" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SupplierId" Type="Decimal" Precision="18" Scale="1" />
+        </EntityType>
+        <EntityType Name="Order_Detail">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" />
+          <Property Name="Drug_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Expiry_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="OrderPickedup" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Order_Details1" Relationship="Self.FK_Order_Details_Order_Details" FromRole="Order_Details" ToRole="Order_Details1" />
+          <NavigationProperty Name="Order_Details" Relationship="Self.FK_Order_Details_Order_Details" FromRole="Order_Details1" ToRole="Order_Details" />
+          <NavigationProperty Name="Order_Details11" Relationship="Self.FK_Order_Details_Order_Details1" FromRole="Order_Details" ToRole="Order_Details1" />
+          <NavigationProperty Name="Order_Details2" Relationship="Self.FK_Order_Details_Order_Details1" FromRole="Order_Details1" ToRole="Order_Details" />
+          <NavigationProperty Name="Order_Details12" Relationship="Self.FK_Order_Details_Order_Details2" FromRole="Order_Details" ToRole="Order_Details1" />
+          <NavigationProperty Name="Order_Details3" Relationship="Self.FK_Order_Details_Order_Details2" FromRole="Order_Details1" ToRole="Order_Details" />
+        </EntityType>
+        <EntityType Name="SupplerInventory">
+          <Key>
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserRegistration">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Order_Details_Order_Details">
+          <End Role="Order_Details" Type="Self.Order_Detail" Multiplicity="1" />
+          <End Role="Order_Details1" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Details">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Order_Details1">
+              <PropertyRef Name="Drug_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Details_Order_Details1">
+          <End Role="Order_Details" Type="Self.Order_Detail" Multiplicity="1" />
+          <End Role="Order_Details1" Type="Self.Order_Detail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Details">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Order_Details1">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Details_Order_Details2">
+          <End Role="Order_Details" Type="Self.Order_Detail" Multiplicity="1" />
+          <End Role="Order_Details1" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Details">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Order_Details1">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PharmacyManagementSystemEntities5" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DrugsInventories" EntityType="Self.DrugsInventory" />
+          <EntitySet Name="Order_Details" EntityType="Self.Order_Detail" />
+          <EntitySet Name="SupplerInventories" EntityType="Self.SupplerInventory" />
+          <EntitySet Name="UserRegistrations" EntityType="Self.UserRegistration" />
+          <AssociationSet Name="FK_Order_Details_Order_Details" Association="Self.FK_Order_Details_Order_Details">
+            <End Role="Order_Details" EntitySet="Order_Details" />
+            <End Role="Order_Details1" EntitySet="Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Details_Order_Details1" Association="Self.FK_Order_Details_Order_Details1">
+            <End Role="Order_Details" EntitySet="Order_Details" />
+            <End Role="Order_Details1" EntitySet="Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Details_Order_Details2" Association="Self.FK_Order_Details_Order_Details2">
+            <End Role="Order_Details" EntitySet="Order_Details" />
+            <End Role="Order_Details1" EntitySet="Order_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="PharmacyManagementSystemEntities5">
+          <EntitySetMapping Name="DrugsInventories">
+            <EntityTypeMapping TypeName="DatabaseModel.DrugsInventory">
+              <MappingFragment StoreEntitySet="DrugsInventory">
+                <ScalarProperty Name="DrugId" ColumnName="DrugId" />
+                <ScalarProperty Name="DrugName" ColumnName="DrugName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Details">
+            <EntityTypeMapping TypeName="DatabaseModel.Order_Detail">
+              <MappingFragment StoreEntitySet="Order Details">
+                <ScalarProperty Name="Order_Id" ColumnName="Order Id" />
+                <ScalarProperty Name="Drug_Id" ColumnName="Drug Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry Date" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total Amount" />
+                <ScalarProperty Name="OrderPickedup" ColumnName="OrderPickedup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplerInventories">
+            <EntityTypeMapping TypeName="DatabaseModel.SupplerInventory">
+              <MappingFragment StoreEntitySet="SupplerInventory">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierEmail" ColumnName="SupplierEmail" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRegistrations">
+            <EntityTypeMapping TypeName="DatabaseModel.UserRegistration">
+              <MappingFragment StoreEntitySet="UserRegistration">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

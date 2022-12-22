@@ -1,0 +1,74 @@
+﻿<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #background {
+        background-image: url(/Pictures/image17.jpg);
+        background-position: inherit;
+        background-size: cover;
+        background-repeat: no-repeat;
+        max-width: 100%;
+        height: 100vh;
+    }
+</style>
+<body id="background">
+@model IEnumerable<PharmacyManagementSystemMVCPart.Models.UserViewModel>
+
+@{
+    ViewBag.Title = "UserRegistration";
+}
+
+<center> <span style="color:blue;"><h2>Registered Users Details</h2></span></center>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConfirmPassword)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConfirmPassword)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new {onclick="return confirm('Are you sure you want to delete?')"})
+            </td>
+        </tr>
+    }
+
+</table>
+    </body>
